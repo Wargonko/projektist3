@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartix — Apple & Samsung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#08080c; --bg2:#0e0e14; --card:#121218; --card2:#17171f;
+--line:rgba(255,255,255,.08); --txt:#f5f5f7; --mut:#9a9aa3;
+--vio:#7c3aed; --blue:#0a84ff; --cyan:#22d3ee; --grad:linear-gradient(135deg,#7c3aed,#0a84ff 55%,#22d3ee);
+--r:20px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:
+radial-gradient(600px 400px at 15% 0%,rgba(124,58,237,.25),transparent 60%),
+radial-gradient(700px 450px at 90% 10%,rgba(10,132,255,.22),transparent 60%),
+radial-gradient(500px 500px at 50% 100%,rgba(34,211,238,.12),transparent 60%);pointer-events:none;z-index:0}
+header{position:sticky;top:0;z-index:30;backdrop-filter:blur(20px);background:rgba(8,8,12,.75);border-bottom:1px solid var(--line)}
+.nav{max-width:1280px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:16px}
+.logo{font-weight:900;font-size:22px;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.logo-mark{width:34px;height:42px;display:grid;place-items:center;line-height:1}
+.logo-mark svg{display:block;transform:scaleX(-1);filter:drop-shadow(0 2px 10px rgba(212,175,55,.35))}
+.nav-links{display:flex;gap:6px;margin-left:8px}
+.nav-links button{background:transparent;border:0;color:var(--mut);font-weight:600;font-size:14px;padding:9px 14px;border-radius:100px;cursor:pointer;transition:.2s}
+.nav-links button:hover,.nav-links button.on{color:#fff;background:rgba(255,255,255,.08)}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:11px 14px;min-width:140px}
+.search input{flex:1;background:none;border:0;outline:none;color:#fff;font-size:14px}
+.search input::placeholder{color:#63636b}
+.cart-btn{position:relative;border:0;background:#fff;color:#000;padding:11px 20px;border-radius:14px;font-weight:800;cursor:pointer;display:flex;gap:8px;align-items:center;transition:.2s}
+.cart-btn:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(255,255,255,.25)}
+.cart-count{position:absolute;top:-8px;right:-8px;background:var(--grad);color:#fff;font-size:12px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:20px;font-weight:800}
+.wrap{max-width:1280px;margin:auto;padding:0 24px;position:relative;z-index:1}
+.hero{margin:28px auto 10px;padding:48px 40px;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line);display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;overflow:hidden;position:relative}
+.hero::after{content:'';position:absolute;width:500px;height:500px;right:-150px;top:-150px;background:radial-gradient(circle,rgba(124,58,237,.4),transparent 70%);pointer-events:none}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#c4b5fd;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.35);padding:7px 14px;border-radius:100px;margin-bottom:16px}
+.pill i{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e;animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.4}}
+.hero h1{font-size:clamp(32px,5vw,58px);line-height:.98;letter-spacing:-2px;font-weight:900}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin:16px 0 24px;font-size:16px;line-height:1.6;max-width:480px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:14px;padding:14px 24px;font-weight:800;font-size:15px;cursor:pointer;transition:.2s}
+.btn-p{background:#fff;color:#000}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,255,255,.2)}
+.btn-s{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+.btn-s:hover{background:rgba(255,255,255,.13)}
+.stats{display:flex;gap:28px;margin-top:26px}
+.stats b{font-size:20px;display:block}
+.stats span{color:var(--mut);font-size:13px}
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;z-index:1}
+.mini{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;backdrop-filter:blur(10px);transition:.25s}
+.mini:hover{transform:translateY(-4px);border-color:rgba(124,58,237,.5)}
+.mini .e{font-size:44px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+.mini img{width:100%;height:110px;object-fit:cover;border-radius:12px}
+.mini b{display:block;margin:10px 0 4px;font-size:14px}
+.mini span{color:var(--mut);font-size:13px}
+.mini span s{opacity:.6}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 18px}
+.seg{display:flex;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:100px;padding:4px}
+.seg button{border:0;background:transparent;color:var(--mut);padding:9px 20px;border-radius:100px;font-weight:700;cursor:pointer;font-size:14px;transition:.2s}
+.seg button.active{background:#fff;color:#000;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.sel{background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;padding:10px 14px;border-radius:12px;font-size:14px;outline:none}
+.sel option{background:#15151c}
+.count{margin-left:auto;color:var(--mut);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;padding-bottom:70px}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:.28s;position:relative}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.18);box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(124,58,237,.25)}
+.card-top{height:210px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#000}
+.card-top img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.card:hover .card-top img{transform:scale(1.06)}
+.card-top.apple{background:radial-gradient(400px 220px at 50% 120%,rgba(255,255,255,.14),transparent),linear-gradient(180deg,#1c1c24,#101015)}
+.card-top.samsung{background:radial-gradient(400px 220px at 50% 120%,rgba(34,211,238,.22),transparent),linear-gradient(180deg,#0f1b3d,#0a0f22)}
+.card-top .glow{position:absolute;width:180px;height:180px;border-radius:50%;filter:blur(50px);opacity:.5}
+.badge{position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;padding:6px 12px;border-radius:100px;backdrop-filter:blur(8px)}
+.badge.apple{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
+.badge.samsung{background:rgba(34,211,238,.15);border:1px solid rgba(34,211,238,.35);color:#a5f3fc}
+.disc{position:absolute;top:12px;right:12px;background:#ef4444;font-size:12px;font-weight:800;padding:6px 10px;border-radius:100px}
+.card-body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:16.5px;letter-spacing:-.2px}
+.spec{color:var(--mut);font-size:13px;line-height:1.5;min-height:40px}
+.rating{font-size:12.5px;color:#fbbf24;letter-spacing:.3px}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px}
+.price{font-size:21px;font-weight:900;letter-spacing:-.5px}
+.old{color:var(--mut);text-decoration:line-through;font-size:13px;font-weight:500;margin-left:6px}
+.add{background:var(--grad);color:#fff;border:0;padding:11px 18px;border-radius:12px;font-weight:800;cursor:pointer;font-size:14px;transition:.2s;box-shadow:0 4px 20px rgba(124,58,237,.4)}
+.add:hover{filter:brightness(1.15);transform:scale(1.03)}
+.add:active{transform:scale(.97)}
+/* drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:.3s;z-index:40}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:-440px;width:420px;max-width:94vw;height:100vh;background:#101016;border-left:1px solid var(--line);transition:.35s cubic-bezier(.2,.9,.25,1);z-index:50;display:flex;flex-direction:column}
+.drawer.open{right:0}
+.drawer-header{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.drawer-items{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.c-item{display:flex;gap:12px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;padding:12px;align-items:center}
+.c-item .ico{width:56px;height:56px;border-radius:12px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;overflow:hidden}
+.c-item .ico img{width:100%;height:100%;object-fit:cover}
+.qty{display:flex;align-items:center;gap:10px;margin-top:6px}
+.qty button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-weight:800}
+.drawer-footer{padding:18px;border-top:1px solid var(--line);background:rgba(0,0,0,.3)}
+.total{display:flex;justify-content:space-between;font-weight:900;font-size:19px;margin-bottom:6px}
+.free{color:#22c55e;font-size:13px;margin-bottom:12px}
+.checkout{width:100%;background:#fff;color:#000;padding:15px;border-radius:14px;border:0;font-weight:900;cursor:pointer;font-size:15px;transition:.2s}
+.checkout:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(255,255,255,.2)}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:60;padding:16px;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)}
+.modal.show{display:flex}
+.modal-box{background:#14141b;border:1px solid var(--line);border-radius:22px;max-width:460px;width:100%;padding:28px;animation:pop .3s}
+@keyframes pop{from{transform:scale(.95) translateY(10px);opacity:0}}
+.modal-box input,.modal-box select{width:100%;padding:13px 14px;margin:6px 0;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;outline:none}
+.modal-box input:focus{border-color:var(--vio)}
+.modal-box select option{background:#15151c}
+.empty{color:var(--mut);text-align:center;padding:36px 10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50,80px);background:#fff;color:#000;font-weight:700;padding:13px 22px;border-radius:100px;z-index:70;transition:.3s;opacity:0}
+.toast.show{transform:translate(-50%,0);opacity:1}
+footer{border-top:1px solid var(--line);text-align:center;color:var(--mut);padding:28px;font-size:13px;position:relative;z-index:1}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:28px 22px}.nav-links{display:none}.stats{flex-wrap:wrap}}
+@media(max-width:640px){#pbox{grid-template-columns:1fr !important}}
+</style>
+</head>
+<body>
+
+<header>
+<nav class="nav">
+<div class="logo"><div class="logo-mark"><svg width="30" height="40" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 2.5 H11 L4.5 9 V15.5 H17 V20.5 H4.5 V32.5 L11 39.5 H23 L29.5 33 V26.5 H17 V21.5 H29.5 V9 L23 2.5 Z" stroke="url(#goldS)" stroke-width="3.4" stroke-linejoin="miter" stroke-linecap="square"/><defs><linearGradient id="goldS" x1="0" y1="0" x2="34" y2="42" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F9E79A"/><stop offset=".45" stop-color="#E3B94E"/><stop offset=".75" stop-color="#C9962E"/><stop offset="1" stop-color="#9A6B14"/></linearGradient></defs></svg></div>Smartix</div>
+<div class="nav-links">
+<button class="on" data-nav="all">Obchod</button>
+<button data-nav="apple">Apple</button>
+<button data-nav="samsung">Samsung</button>
+</div>
+<div class="search">⌕ <input id="search" placeholder="Hľadať iPhone, Galaxy, MacBook…"></div>
+<button class="cart-btn" id="openCart">🛒 Košík <span class="cart-count" id="cartCount">0</span></button>
+</nav>
+</header>
+
+<div class="wrap">
+<section class="hero">
+<div>
+<div class="pill"><i></i> Nové modely 2026 • Doprava zdarma</div>
+<h1>Budúcnosť vo <em>vašom vrecku.</em></h1>
+<p>Originálne Apple a Samsung produkty. 2-ročná záruka, 30 dní na vrátenie a splátky od 0 %.</p>
+<div class="hero-actions">
+<button class="btn btn-p" onclick="setBrand('apple')">Preskúmať Apple</button>
+<button class="btn btn-s" onclick="setBrand('samsung')">Preskúmať Samsung</button>
+</div>
+<div class="stats">
+<div><b>12+</b><span>Top produktov</span></div>
+<div><b>4.9 ★</b><span>2 400+ recenzií</span></div>
+<div><b>24 h</b><span>Expres doručenie</span></div>
+</div>
+</div>
+<div class="hero-visual">
+<div class="mini"><img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=600&auto=format&fit=crop" alt="iPhone 16 Pro" loading="lazy"><b>iPhone 16 Pro</b><span>od 1 099 € <s>1 199 €</s></span></div>
+<div class="mini"><img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=600&auto=format&fit=crop" alt="Galaxy S25 Ultra" loading="lazy"><b>Galaxy S25 Ultra</b><span>od 1 469 €</span></div>
+<div class="mini"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=600&auto=format&fit=crop" alt="MacBook Air M3" loading="lazy"><b>MacBook Air M3</b><span>od 1 299 €</span></div>
+<div class="mini"><img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=600&auto=format&fit=crop" alt="Watch" loading="lazy"><b>Watch Ultra</b><span>od 319 €</span></div>
+</div>
+</section>
+
+<div class="toolbar">
+<div class="seg" id="seg">
+<button data-brand="all" class="active">Všetko</button>
+<button data-brand="apple">🍏 Apple</button>
+<button data-brand="samsung">Samsung</button>
+</div>
+<select class="sel" id="category">
+<option value="all">Všetky kategórie</option>
+<option value="telefon">Telefóny</option>
+<option value="notebook">Notebooky</option>
+<option value="tablet">Tablety</option>
+<option value="hodinky">Hodinky</option>
+<option value="audio">Audio</option>
+</select>
+<select class="sel" id="sort">
+<option value="pop">Odporúčané</option>
+<option value="low">Najlacnejšie</option>
+<option value="high">Najdrahšie</option>
+</select>
+<div class="count" id="count"></div>
+</div>
+
+<main class="grid" id="grid"></main>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="drawer" id="drawer">
+<div class="drawer-header">
+<strong style="font-size:17px">Váš košík (<span id="cartCount2">0</span>)</strong>
+<button id="closeCart" style="border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;padding:8px 14px;border-radius:10px;cursor:pointer">✕</button>
+</div>
+<div class="drawer-items" id="cartItems"></div>
+<div class="drawer-footer">
+<div class="total"><span>Spolu</span><span id="total">0,00 €</span></div>
+<div class="free">✓ Doprava zdarma • ✓ Záruka 2 roky</div>
+<button class="checkout" id="goCheckout">Pokračovať k objednávke →</button>
+</div>
+</aside>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<h2 style="letter-spacing:-.5px">Dokončiť objednávku</h2>
+<p style="color:#9a9aa3;font-size:14px;margin:6px 0 14px">Suma: <b id="modalTotal" style="color:#fff">0 €</b></p>
+<input id="name" placeholder="Meno a priezvisko">
+<input id="email" placeholder="E-mail">
+<input id="address" placeholder="Adresa doručenia">
+<select id="pay"><option>Karta online 💳</option><option>Dobierka</option><option>Bankový prevod</option><option>Splátky 0 %</option></select>
+<button class="checkout" id="confirmOrder" style="margin-top:12px">Potvrdiť objednávku</button>
+<button id="closeModal" style="width:100%;margin-top:8px;background:none;border:0;color:#888;cursor:pointer;padding:10px">Späť do obchodu</button>
+<div id="success" style="display:none;margin-top:12px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);padding:12px;border-radius:12px">✓ Ďakujeme! Objednávka prijatá.</div>
+</div>
+</div>
+
+<div class="toast" id="toast">Pridané do košíka ✓</div>
+<div class="modal" id="pmodal"><div class="modal-box" id="pbox" style="max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start"></div></div>
+<footer>© 2026 Smartix • Apple & Samsung premium reseller • Ceny s DPH</footer>
+
+<script>
+const PRODUCTS=[
+{id:1,brand:'apple',cat:'telefon',name:'iPhone 16 Pro 128 GB',spec:'6.3" OLED 120Hz • A18 Pro • Titan • 48 Mpx',price:1099,old:1199,img:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:2,brand:'apple',cat:'telefon',name:'iPhone 16 128 GB',spec:'6.1" OLED • A18 • Apple Intelligence • IP68',price:879,old:null,img:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:3,brand:'apple',cat:'notebook',name:'MacBook Air 13" M3',spec:'Apple M3 • 8 GB • 256 GB SSD • 18 h výdrž',price:1299,old:1449,img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 5.0'},
+{id:4,brand:'apple',cat:'tablet',name:'iPad Air 11" M2',spec:'M2 • 128 GB • Touch ID • Pencil Pro',price:769,old:null,img:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:5,brand:'apple',cat:'hodinky',name:'Apple Watch Series 10',spec:'46 mm GPS • always-on • EKG • watchOS',price:449,old:499,img:'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:6,brand:'apple',cat:'audio',name:'AirPods Pro 2 USB-C',spec:'ANC 2× • Adaptive Audio • MagSafe',price:279,old:299,img:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:7,brand:'samsung',cat:'telefon',name:'Galaxy S25 Ultra 256 GB',spec:'6.9" QHD+ • Snapdragon 8 Elite • S Pen',price:1469,old:1599,img:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 5.0'},
+{id:8,brand:'samsung',cat:'telefon',name:'Galaxy S25 128 GB',spec:'6.2" AMOLED 120 Hz • Galaxy AI • IP68',price:899,old:null,img:'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:9,brand:'samsung',cat:'telefon',name:'Galaxy Z Flip6 256 GB',spec:'Skladací 6.7" AMOLED • 12 GB RAM',price:1199,old:1349,img:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:10,brand:'samsung',cat:'notebook',name:'Galaxy Book4 Pro 14"',spec:'Core Ultra 7 • AMOLED • 16 GB • 512 GB',price:1599,old:null,img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:11,brand:'samsung',cat:'hodinky',name:'Galaxy Watch7 44 mm',spec:'BT + GPS • Wear OS • AI spánok',price:319,old:359,img:'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:12,brand:'samsung',cat:'audio',name:'Galaxy Buds3 Pro',spec:'ANC • 24-bit Hi-Fi • Wireless charging',price:249,old:null,img:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+];
+const GALLERY={
+telefon:['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop'],
+notebook:['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=800&auto=format&fit=crop'],
+tablet:['https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1561154464-82e9adf32764?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?q=80&w=800&auto=format&fit=crop'],
+hodinky:['https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800&auto=format&fit=crop'],
+audio:['https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?q=80&w=800&auto=format&fit=crop']
+};
+let brand='all';
+const grid=document.getElementById('grid');
+const cart=JSON.parse(localStorage.getItem('nova_cart')||'{}');
+const eur=n=>n.toLocaleString('sk-SK',{style:'currency',currency:'EUR'});
+function setBrand(b){brand=b;
+document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('active',x.dataset.brand===b));
+document.querySelectorAll('.nav-links button').forEach(x=>x.classList.toggle('on',(x.dataset.nav||'all')===b));
+render();
+document.querySelector('.toolbar').scrollIntoView({behavior:'smooth',block:'center'});
+}
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>setBrand(b.dataset.brand));
+document.querySelectorAll('.nav-links button').forEach(b=>b.onclick=()=>setBrand(b.dataset.nav));
+['category','sort'].forEach(id=>document.getElementById(id).onchange=render);
+document.getElementById('search').oninput=render;
+function render(){
+const q=document.getElementById('search').value.toLowerCase();
+const cat=document.getElementById('category').value;
+const sort=document.getElementById('sort').value;
+let list=PRODUCTS.filter(p=>(brand==='all'||p.brand===brand)&&(cat==='all'||p.cat===cat)&&p.name.toLowerCase().includes(q));
+if(sort==='low')list.sort((a,b)=>a.price-b.price);
+if(sort==='high')list.sort((a,b)=>b.price-a.price);
+document.getElementById('count').textContent=list.length+' produktov';
+grid.innerHTML=list.map(p=>{
+const d=p.old?Math.round((1-p.price/p.old)*100):0;
+return `<div class="card">
+<div class="card-top ${p.brand}" onclick="openDetail(${p.id})" style="cursor:pointer"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">${d?`<div class="disc">−${d}%</div>`:''}<div class="badge ${p.brand}">${p.brand}</div></div>
+<div class="card-body"><h3 onclick="openDetail(${p.id})" style="cursor:pointer">${p.name}</h3><div class="spec">${p.spec}</div><div class="rating">${p.rate}</div>
+<div class="price-row"><div class="price">${eur(p.price)}${p.old?`<span class="old">${eur(p.old)}</span>`:''}</div>
+<button class="add" onclick="event.stopPropagation();addToCart(${p.id})">+ Košík</button></div></div></div>`}).join('')||'<div class="empty">Nič sme nenašli. Skúste iný dotaz.</div>';
+}
+let pQty=1;
+function openDetail(id){
+const p=PRODUCTS.find(x=>x.id===id);pQty=1;
+const d=p.old?Math.round((1-p.price/p.old)*100):0;
+const gallery=[p.img,...(GALLERY[p.cat]||[])].filter((v,i,a)=>a.indexOf(v)===i).slice(0,4);
+document.getElementById('pbox').innerHTML=`
+<div>
+<img id="pMain" src="${p.img}" alt="${p.name}" style="width:100%;height:280px;object-fit:cover;border-radius:14px;border:1px solid rgba(255,255,255,.1)">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px">
+${gallery.map((g,i)=>`<img src="${g}" onclick="document.getElementById('pMain').src=this.src;document.querySelectorAll('.pth').forEach(t=>t.style.borderColor='rgba(255,255,255,.1)');this.style.borderColor='#D4AF37'" class="pth" style="width:100%;height:62px;object-fit:cover;border-radius:10px;border:1px solid ${i===0?'#D4AF37':'rgba(255,255,255,.1)'};cursor:pointer">`).join('')}
+</div>
+</div>
+<div>
+<div class="badge ${p.brand}" style="position:static">${p.brand} ${d?'• −'+d+'%':''}</div>
+<h2 style="margin:10px 0 6px;font-size:22px;letter-spacing:-.5px">${p.name}</h2>
+<div class="rating">${p.rate}</div>
+<p style="color:#9a9aa3;font-size:14px;line-height:1.6;margin:10px 0">${p.spec}</p>
+<ul style="color:#9a9aa3;font-size:13px;line-height:1.9;margin:0 0 12px 18px"><li>Originálny produkt • 2-ročná záruka</li><li>Doprava zdarma • vrátenie do 30 dní</li><li>Skladom – odoslanie do 24 h</li></ul>
+<div style="font-size:24px;font-weight:900;margin-bottom:12px">${eur(p.price)}${p.old?`<span class="old">${eur(p.old)}</span>`:''}</div>
+<div style="display:flex;gap:10px;align-items:center">
+<div class="qty" style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.06);padding:6px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.1)"><button onclick="pQtyChange(-1)">−</button><b id="pQty">1</b><button onclick="pQtyChange(1)">+</button></div>
+<button class="add" style="flex:1;padding:13px" onclick="addDetail(${p.id})">Pridať do košíka</button>
+</div>
+<button onclick="closeDetail()" style="width:100%;margin-top:8px;background:none;border:0;color:#888;cursor:pointer;padding:10px">Zavrieť</button>
+</div>`;
+document.getElementById('pmodal').classList.add('show');
+}
+function pQtyChange(d){pQty=Math.max(1,Math.min(9,pQty+d));document.getElementById('pQty').textContent=pQty}
+function addDetail(id){cart[id]=(cart[id]||0)+pQty;save();toast();closeDetail();openDrawer()}
+function closeDetail(){document.getElementById('pmodal').classList.remove('show')}
+document.getElementById('pmodal').addEventListener('click',e=>{if(e.target.id==='pmodal')closeDetail()});
+function save(){localStorage.setItem('nova_cart',JSON.stringify(cart));updateCart()}
+function addToCart(id){cart[id]=(cart[id]||0)+1;save();toast();openDrawer()}
+function changeQty(id,d){cart[id]+=d;if(cart[id]<=0)delete cart[id];save()}
+let toastT;function toast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1600)}
+function updateCart(){
+const ids=Object.keys(cart);
+const count=ids.reduce((s,k)=>s+cart[k],0);
+document.getElementById('cartCount').textContent=count;
+document.getElementById('cartCount2').textContent=count;
+let total=0;
+document.getElementById('cartItems').innerHTML=ids.map(k=>{
+const p=PRODUCTS.find(x=>x.id==k);total+=p.price*cart[k];
+return `<div class="c-item"><div class="ico"><img src="${p.img}" alt="" loading="lazy"></div>
+<div style="flex:1"><b style="font-size:14px">${p.name}</b><div style="color:#9a9aa3;font-size:13px">${eur(p.price)}</div>
+<div class="qty"><button onclick="changeQty(${p.id},-1)">−</button>${cart[k]}<button onclick="changeQty(${p.id},1)">+</button></div></div></div>`}).join('')||'<div class="empty">Košík je prázdny.<br>Vyberte si z ponuky.</div>';
+document.getElementById('total').textContent=eur(total);
+document.getElementById('modalTotal').textContent=eur(total);
+}
+function openDrawer(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show')}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show')}
+document.getElementById('openCart').onclick=openDrawer;
+document.getElementById('closeCart').onclick=closeDrawer;
+document.getElementById('overlay').onclick=closeDrawer;
+document.getElementById('goCheckout').onclick=()=>{if(!Object.keys(cart).length)return alert('Košík je prázdny');document.getElementById('modal').classList.add('show')};
+document.getElementById('closeModal').onclick=()=>document.getElementById('modal').classList.remove('show');
+document.getElementById('confirmOrder').onclick=()=>{
+if(!document.getElementById('name').value||!document.getElementById('email').value||!document.getElementById('address').value)return alert('Vyplňte meno, e-mail a adresu.');
+document.getElementById('success').style.display='block';
+Object.keys(cart).forEach(k=>delete cart[k]);save();
+setTimeout(()=>{document.getElementById('modal').classList.remove('show');document.getElementById('success').style.display='none';closeDrawer()},2400);
+};
+render();updateCart();
+</script>
+</body>
+</html>
