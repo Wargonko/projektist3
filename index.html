@@ -147,7 +147,7 @@ footer{border-top:1px solid var(--line);text-align:center;color:var(--mut);paddi
 <button class="btn btn-s" onclick="setBrand('samsung')">Preskúmať Samsung</button>
 </div>
 <div class="stats">
-<div><b>12+</b><span>Top produktov</span></div>
+<div><b>35+</b><span>Top produktov</span></div>
 <div><b>4.9 ★</b><span>2 400+ recenzií</span></div>
 <div><b>24 h</b><span>Expres doručenie</span></div>
 </div>
@@ -173,6 +173,8 @@ footer{border-top:1px solid var(--line);text-align:center;color:var(--mut);paddi
 <option value="tablet">Tablety</option>
 <option value="hodinky">Hodinky</option>
 <option value="audio">Audio</option>
+<option value="prislusenstvo">Príslušenstvo – obaly, sklá</option>
+<option value="vr">VR headsety</option>
 </select>
 <select class="sel" id="sort">
 <option value="pop">Odporúčané</option>
@@ -232,13 +234,40 @@ const PRODUCTS=[
 {id:10,brand:'samsung',cat:'notebook',name:'Galaxy Book4 Pro 14"',spec:'Core Ultra 7 • AMOLED • 16 GB • 512 GB',price:1599,old:null,img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
 {id:11,brand:'samsung',cat:'hodinky',name:'Galaxy Watch7 44 mm',spec:'BT + GPS • Wear OS • AI spánok',price:319,old:359,img:'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
 {id:12,brand:'samsung',cat:'audio',name:'Galaxy Buds3 Pro',spec:'ANC • 24-bit Hi-Fi • Wireless charging',price:249,old:null,img:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:13,brand:'apple',cat:'prislusenstvo',name:'Apple Silikónový obal iPhone 16 Pro',spec:'MagSafe • mikrovlákno • odolný voči škrabancom',price:59,old:null,img:'https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:14,brand:'samsung',cat:'prislusenstvo',name:'Samsung Silikónový obal Galaxy S25',spec:'Pogumovaný • zvýšené rohy • presné výrezy',price:34,old:45,img:'https://images.unsplash.com/photo-1541877944-ac82a091518a?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:15,brand:'apple',cat:'prislusenstvo',name:'Tvrdené sklo iPhone 16 / 16 Pro',spec:'9H • oleofóbna vrstva • aplikátor v balení',price:19,old:25,img:'https://images.unsplash.com/photo-1585060544812-6b45742d762f?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:16,brand:'samsung',cat:'prislusenstvo',name:'Tvrdené sklo Galaxy S25 / Ultra',spec:'9H • 2 ks v balení • odolné voči odtlačkom',price:17,old:null,img:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:17,brand:'apple',cat:'prislusenstvo',name:'Kožené puzdro na AirPods Pro',spec:'Prémiová koža • karabína • MagSafe priechod',price:39,old:null,img:'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:18,brand:'samsung',cat:'prislusenstvo',name:'Puzdro na Galaxy Buds + remienok',spec:'Silikón • karabína • ochrana proti pádu',price:24,old:32,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.5'},
+{id:19,brand:'apple',cat:'telefon',name:'iPhone 17 Pro Max 256 GB',spec:'6.9" OLED 120Hz • A19 Pro • Titan • 48 Mpx',price:1449,old:null,img:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 5.0'},
+{id:20,brand:'apple',cat:'telefon',name:'iPhone 17 128 GB',spec:'6.3" OLED • A19 • Apple Intelligence • IP68',price:949,old:null,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:21,brand:'apple',cat:'telefon',name:'iPhone 15 128 GB',spec:'6.1" OLED • A16 • Dynamic Island • 48 Mpx',price:729,old:799,img:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:22,brand:'apple',cat:'telefon',name:'iPhone 14 128 GB',spec:'6.1" OLED • A15 • Dual 12 Mpx • IP68',price:629,old:null,img:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:23,brand:'apple',cat:'telefon',name:'iPhone 13 128 GB',spec:'6.1" OLED • A15 • Dual 12 Mpx • Face ID',price:549,old:599,img:'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:24,brand:'apple',cat:'telefon',name:'iPhone 12 64 GB',spec:'6.1" OLED • A14 • 5G • MagSafe',price:449,old:null,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.5'},
+{id:25,brand:'samsung',cat:'telefon',name:'Galaxy S26 Ultra 256 GB',spec:'6.9" QHD+ • Snapdragon 8 Elite Gen2 • S Pen',price:1549,old:null,img:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 5.0'},
+{id:26,brand:'samsung',cat:'telefon',name:'Galaxy S24 Ultra 256 GB',spec:'6.8" QHD+ • Snapdragon 8 Gen3 • 200 Mpx',price:1249,old:1399,img:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:27,brand:'samsung',cat:'telefon',name:'Galaxy S23 Ultra 256 GB',spec:'6.8" QHD+ • Snapdragon 8 Gen2 • S Pen',price:1049,old:null,img:'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.8'},
+{id:28,brand:'samsung',cat:'telefon',name:'Galaxy S22 128 GB',spec:'6.1" AMOLED 120Hz • Exynos 2200 • 50 Mpx',price:699,old:null,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:29,brand:'samsung',cat:'telefon',name:'Galaxy S21 128 GB',spec:'6.2" AMOLED 120Hz • Exynos 2100 • 64 Mpx',price:599,old:null,img:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.5'},
+{id:30,brand:'samsung',cat:'telefon',name:'Galaxy S20 128 GB',spec:'6.2" AMOLED 120Hz • Exynos 990 • 64 Mpx',price:499,old:null,img:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.4'},
+{id:31,brand:'samsung',cat:'telefon',name:'Galaxy A55 128 GB',spec:'6.6" AMOLED 120Hz • Exynos 1480 • IP67',price:449,old:499,img:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
+{id:32,brand:'samsung',cat:'telefon',name:'Galaxy A35 128 GB',spec:'6.6" AMOLED 120Hz • Exynos 1380 • 50 Mpx OIS',price:349,old:null,img:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.5'},
+{id:33,brand:'samsung',cat:'telefon',name:'Galaxy A25 128 GB',spec:'6.5" AMOLED 120Hz • Exynos 1280 • 50 Mpx',price:279,old:null,img:'https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.4'},
+{id:34,brand:'samsung',cat:'telefon',name:'Galaxy A15 128 GB',spec:'6.5" AMOLED 90Hz • Helio G99 • 50 Mpx',price:199,old:229,img:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.3'},
+{id:35,brand:'apple',cat:'vr',name:'Apple Vision Pro 256 GB',spec:'micro-OLED 4K • M2 + R1 • EyeSight • visionOS',price:3499,old:null,img:'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=800&auto=format&fit=crop',rate:'★★★★★ 4.9'},
+{id:36,brand:'samsung',cat:'vr',name:'Samsung Galaxy XR headset',spec:'4K AMOLED • Snapdragon XR2+ • Galaxy AI',price:1299,old:null,img:'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.7'},
+{id:37,brand:'apple',cat:'vr',name:'Apple Vision Pro cestovné puzdro',spec:'Originál • tkanina • ochrana optiky',price:229,old:null,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',rate:'★★★★☆ 4.6'},
 ];
 const GALLERY={
 telefon:['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop'],
 notebook:['https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=800&auto=format&fit=crop'],
 tablet:['https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1561154464-82e9adf32764?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?q=80&w=800&auto=format&fit=crop'],
 hodinky:['https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800&auto=format&fit=crop'],
-audio:['https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?q=80&w=800&auto=format&fit=crop']
+audio:['https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?q=80&w=800&auto=format&fit=crop'],
+prislusenstvo:['https://images.unsplash.com/photo-1601593346740-925612772716?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1541877944-ac82a091518a?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?q=80&w=800&auto=format&fit=crop'],
+vr:['https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=800&auto=format&fit=crop','https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=800&auto=format&fit=crop']
 };
 let brand='all';
 const grid=document.getElementById('grid');
